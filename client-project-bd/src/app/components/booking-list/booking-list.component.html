@@ -1,0 +1,22 @@
+<h1>My Bookings</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Airline</th>
+        <!-- <th scope="col">Aircraft</th>-->
+        <th scope="col">Outbound</th>
+        <th scope="col">Return</th>
+        <th scope="col">Route</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let booking of bookings">
+        <th scope="row">{{booking.airline}}</th>
+        <!--<td>{{booking.aircraft_name}}</td>-->
+        <td>{{booking.departure_time | date:'MMM d, y, h:mm:ss a'}}</td>
+        <td>{{booking.arrival_time | date:'MMM d, y, h:mm:ss a'}}</td>
+        <td>{{booking.source}} => {{booking.destination}}</td>
+        <td>{{booking.status}}</td>
+    </tbody>
+  </table>

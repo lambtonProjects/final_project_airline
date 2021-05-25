@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-header">
+      Flight details
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0" >
+
+        <div *ngFor = "let flight of flights">
+        <p>From: {{flight.source}} To: {{flight.destination}}</p>
+        <p>Depart: {{flight.departure_time | date:'MMM d, y, h:mm:ss a'}} </p>
+        <p>Return: {{flight.arrival_time | date:'MMM d, y, h:mm:ss a'}} </p>
+
+        <p>Duration: {{flight.total_time}}&nbsp; Hours </p>
+        <footer class="blockquote-footer">Airline <cite title="Source Title">{{flight.airline}}</cite></footer></div>
+      </blockquote>
+        </div>
+  </div>
+
+  <form #SaveForm="ngForm" (ngSubmit)="onSubmit(SaveForm)">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputPass">Passport</label>
+        <input type="text" 
+        class="form-control" 
+        [(ngModel)]="model.passenger_passport" 
+        [ngModelOptions]="{name: 'passenger_passport'}"
+        placeholder="Passport" class="form-control" >
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="inputName">First name: </label>
+        <input type="text" 
+        class="form-control" 
+        [(ngModel)]="model.first_name" 
+        [ngModelOptions]="{name: 'first_name'}"
+        placeholder="Jose">
+      </div>
+    </div>
+    <div class="form-group col-md-6z  xz    " >
+      <label for="inputLastName">Last name: </label>
+      <input type="text" 
+      class="form-control" 
+      [(ngModel)]="model.last_name" 
+      [ngModelOptions]="{name: 'last_name'}"
+      placeholder="Perez">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [hidden]="succes">Booking</button>
+  </form>
+
+  <div class="alert alert-success" role="alert" [hidden]="!succes">
+    <h4 class="alert-heading">Congratulations!</h4>
+    <p>Your Flight booking in on hold </p>
+    
+    <div *ngFor = "let booking of bookings">
+      <p>Booking Reference Number is - {{booking.ticket_number}}</p>
+    
+    <hr>
+    <p class="mb-0"><a [routerLink]="['/listBooking', booking.passenger_passport ]" class="btn btn-info btn-block">
+      My Bookings
+    </a></p>
+  </div>
+  </div>

@@ -1,0 +1,74 @@
+
+<form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="from" class="form-label">From</label>
+        <select class="form-control" name="source" [(ngModel)]="model.source">
+          <option selected>Select an option</option>
+          <option *ngFor="let city of citiesFrom" [value]="city">
+            {{city}}
+          </option>
+        </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="from" class="form-label">to</label>
+      <select class="form-control" name="destination" [(ngModel)]="model.destination">
+        <option selected>Select an option</option>
+        <option *ngFor="let city of citiesTo" [value]="city">
+          {{city}}
+      </option>
+      </select>
+    </div>
+  </div>  
+  <div class="form-row">
+    <div class="col-md-6">
+      <label for="depart" class="form-label">Depart</label>
+      <input class="form-control" 
+      type="date" 
+      id="example-date-input" 
+      [(ngModel)]="model.departure_time" 
+      [ngModelOptions]="{name: 'departure_time'}">
+    </div>
+
+    <div class="col-md-6">
+      <label for="depart" class="form-label">Return</label>
+      <input class="form-control" 
+      type="date" 
+      id="example-date-input" 
+      [(ngModel)]="model.arrival_time" 
+      [ngModelOptions]="{name: 'arrival_time'}">
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Search Fligths</button>
+  </div>
+
+  </form>
+<!--result-->
+<div [hidden]="!submitted">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Airline</th>
+        <th scope="col">Aircraft</th>
+        <th scope="col">Outbound</th>
+        <th scope="col">Return</th>
+        <th scope="col">Duration</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let flight of flights">
+        <th scope="row">{{flight.airline}}</th>
+        <td>{{flight.aircraft_name}}</td> 
+        <td>{{flight.departure_time | date:'MMM d, y, h:mm:ss a'}}</td>
+        <td>{{flight.arrival_time | date:'MMM d, y, h:mm:ss a'}}</td>
+        <td>{{flight.total_time}}&nbsp; Hours</td>
+        <td>
+          <a [routerLink]="['/addPassanger', flight.flight_number ]" class="btn btn-info btn-block">
+            Choose
+          </a>&nbsp; Seat: {{flight.seat}}
+      </tr>
+    </tbody>
+  </table>
+</div>
